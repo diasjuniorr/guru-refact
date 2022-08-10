@@ -1,62 +1,22 @@
 const assert = require("assert");
 
 const Node = (operator, value, left, right) => {
-  const result = function () {
-    switch (operator) {
-      case "+":
-        return left.result() + right.result();
-      case "-":
-        return left.result() - right.result();
-      case "x":
-        return left.result() * right.result();
-      case "÷":
-        return left.result() / right.result();
-      default:
-        return value;
-    }
-  };
-
-  const toString = function () {
-    switch (operator) {
-      case "+":
-        return `(${left.toString()} + ${right.toString()})`;
-      case "-":
-        return `(${left.toString()} - ${right.toString()})`;
-      case "x":
-        return `(${left.toString()} x ${right.toString()})`;
-      case "÷":
-        return `(${left.toString()} ÷ ${right.toString()})`;
-      default:
-        return value.toString();
-    }
-  };
-
   return {
     operator,
     value,
     left,
     right,
-    result,
-    toString,
   };
 };
 
-const tree = Node(
-  "÷",
-  null,
-  Node(
-    "+",
-    null,
-    Node("", 7, null, null),
-    Node(
-      "x",
-      null,
-      Node("-", null, Node("", 3, null, null), Node("", 2, null, null)),
-      Node("", 5, null, null)
-    )
-  ),
-  Node("", 6, null, null)
-);
+const n1 = Node("+", null, n2, n3);
+const n2 = Node("", 7, null, null);
+const n3 = Node("x", null, n4, n7);
+const n4 = Node("-", null, n5, n6);
+const n5 = Node("", 3, null, null);
+const n6 = Node("", 2, null, null);
+const n7 = Node("", 5, null, null);
+const n8 = Node("", 6, null, null);
 
 assert.strictEqual("((7 + ((3 - 2) x 5)) ÷ 6)", tree.toString());
 assert.strictEqual(2, tree.result());
