@@ -1,0 +1,7 @@
+const assert = require("assert");
+
+const expected = [1, 2, 3, 4];
+assert.deepEqual(flatten(arr), expected);
+
+const expected2 = [1, 2, 3, 4, 5, 6];
+assert.deepEqual(flatten([1, 2, 3, [4, [5, [6]]]]), expected2);
