@@ -8,7 +8,7 @@ const Node = (operator, value, left, right) => {
     right,
   };
 
-  return Object.assign(state, result(state));
+  return Object.assign(state, result(state), toString(state));
 };
 
 const result = (state) => ({
@@ -28,6 +28,23 @@ const result = (state) => ({
   },
 });
 
+const toString = (state) => ({
+  toString: () => {
+    switch (state.operator) {
+      case "+":
+        return `(${state.left.toString()} + ${state.right.toString()})`;
+      case "-":
+        return `(${state.left.toString()} - ${state.right.toString()})`;
+      case "x":
+        return `(${state.left.toString()} x ${state.right.toString()})`;
+      case "÷":
+        return `(${state.left.toString()} ÷ ${state.right.toString()})`;
+      default:
+        return state.value.toString();
+    }
+  },
+});
+
 const n8 = Node("", 6, null, null);
 const n7 = Node("", 5, null, null);
 const n6 = Node("", 2, null, null);
@@ -38,7 +55,6 @@ const n2 = Node("", 7, null, null);
 const n1 = Node("+", null, n2, n3);
 
 const tree = Node("÷", null, n1, n8);
-console.log(tree.result());
 
 assert.strictEqual("((7 + ((3 - 2) x 5)) ÷ 6)", tree.toString());
 assert.strictEqual(2, tree.result());
